@@ -266,6 +266,14 @@
   "recordDropdown": "Record new",
   "recordPaymentButton": "Payment",
   "recordAPayment": "Record a payment",
+<<<<<<< HEAD
   "recordAChildsPayment": "Record each child's payment to check if there are any inconsistencies"
 >>>>>>> d58eccab (Added record payment modal (#1705))
+=======
+  "recordAChildsPayment": "Record each child's payment to check if there are any inconsistencies",
+  "differentAmountFromState": "I received a different amount from the state",
+  "updatePayment": "Update payment",
+  "differentPaymentAmount": "If you received a different amount",
+  "recordPaymentOf": "Record payment of"
+>>>>>>> e209c948 (WIP)
 }

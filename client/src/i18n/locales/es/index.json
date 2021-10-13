@@ -266,6 +266,14 @@
   "recordDropdown": "Anotar nuevo",
   "recordPaymentButton": "Pago",
   "recordAPayment": "Anota un pago",
+<<<<<<< HEAD
   "recordAChildsPayment": "Anota el pago de cada niño para chequear si haya contradicciones"
 >>>>>>> d58eccab (Added record payment modal (#1705))
+=======
+  "recordAChildsPayment": "Anota el pago de cada niño para chequear si haya contradicciones",
+  "differentAmountFromState": "Recibí un monto distinto del estado",
+  "updatePayment": "Actualizar el pago",
+  "differentPaymentAmount": "Si recibiste un monto distinto",
+  "recordPaymentOf": "Anota un pago de"
+>>>>>>> e209c948 (WIP)
 }
