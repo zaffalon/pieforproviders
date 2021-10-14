@@ -8,8 +8,12 @@ class ChildApproval < UuidApplicationRecord
   has_many :illinois_approval_amounts, dependent: :destroy
   has_many :nebraska_approval_amounts, dependent: :destroy
   has_many :attendances, dependent: :destroy
+<<<<<<< HEAD
   has_many :service_days, -> { distinct }, through: :attendances
   has_many :payments, dependent: :destroy
+=======
+  has_many :payment, dependent: :destroy
+>>>>>>> 74445982 (dragonbone81/pie 1642/batch payments (#1764))
 
   delegate :user, to: :child
   delegate :business, to: :child

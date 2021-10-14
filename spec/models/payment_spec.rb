@@ -31,6 +31,10 @@ end
 #
 #  fk_rails_...  (child_approval_id => child_approvals.id)
 <<<<<<< HEAD
+<<<<<<< HEAD
 #
 =======
 >>>>>>> 93cd2cae (linting fix)
+=======
+#
+>>>>>>> 74445982 (dragonbone81/pie 1642/batch payments (#1764))

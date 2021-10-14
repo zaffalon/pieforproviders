@@ -47,6 +47,7 @@ module Api
           @errors,
           "not allowed to create an attendance for child #{attendance[:child_id]}"
         )
+<<<<<<< HEAD
       end
 
       def get_child_approval_id(attendance)
@@ -58,6 +59,19 @@ module Api
         )
       end
 
+=======
+      end
+
+      def get_child_approval_id(attendance)
+        Batchable.child_approval_id(
+          attendance[:child_id],
+          attendance[:check_in],
+          @errors,
+          "child #{attendance[:child_id]} has no active approval for attendance date #{attendance[:check_in]}"
+        )
+      end
+
+>>>>>>> 74445982 (dragonbone81/pie 1642/batch payments (#1764))
       def attendance_valid?(attendance)
         unless attendance[:child_id]
           Batchable.add_error_and_return_nil(:child_id, @errors)
