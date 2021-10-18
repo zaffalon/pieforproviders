@@ -258,6 +258,7 @@
   "updatePayment": "Update payment",
   "differentPaymentAmount": "If you received a different amount",
   "recordPaymentOf": "Record payment of",
+<<<<<<< HEAD
   "enterAmount": "Enter amount",
   "calculatedBy": "Calculated by",
   "pieForProvidersHasCalculated": "Pie for Providers has calculated your subsidy revenue for the month, based on attendance and state-specific rules.",
@@ -276,4 +277,7 @@
   "differentPaymentAmount": "If you received a different amount",
   "recordPaymentOf": "Record payment of"
 >>>>>>> e209c948 (WIP)
+=======
+  "enterAmount": "Enter amount"
+>>>>>>> 210f8692 (added payment input component)
 }

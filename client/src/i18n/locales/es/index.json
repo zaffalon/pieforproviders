@@ -258,6 +258,7 @@
   "updatePayment": "Actualizar el pago",
   "differentPaymentAmount": "Si recibiste un monto distinto",
   "recordPaymentOf": "Anota un pago de",
+<<<<<<< HEAD
   "enterAmount": "Pone el monto",
   "calculatedBy": "Calculado por Pie",
   "pieForProvidersHasCalculated": "Pie for Providers ha calculado tus ingresos del subsidio para el mes, basado en asistencia y reglas específicas del estado.",
@@ -276,4 +277,7 @@
   "differentPaymentAmount": "Si recibiste un monto distinto",
   "recordPaymentOf": "Anota un pago de"
 >>>>>>> e209c948 (WIP)
+=======
+  "enterAmount": "Pone el monto"
+>>>>>>> 210f8692 (added payment input component)
 }
