@@ -247,6 +247,7 @@
   "screenSize": "Tamaño de pantalla no compatible",
   "incompatibleMsg": "O tu navegador es demasiado pequeño o estás en un aparato móvil. Por favor cambia a una computadora o tableta para ver esta pagina.",
   "noInfo": "no info",
+<<<<<<< HEAD
   "daily": "día completo",
   "hourly": "horas",
   "recordDropdown": "Anotar nuevo",
@@ -261,4 +262,10 @@
   "calculatedBy": "Calculado por Pie",
   "pieForProvidersHasCalculated": "Pie for Providers ha calculado tus ingresos del subsidio para el mes, basado en asistencia y reglas específicas del estado.",
   "paymentFailed": "Lo sentimos, pero se produjo un error al registrar el pago. Ingrese la información y vuelva a intentarlo."
+=======
+  "recordDropdown": "Anotar nuevo",
+  "recordPaymentButton": "Pago",
+  "recordAPayment": "Anota un pago",
+  "recordAChildsPayment": "Anota el pago de cada niño para chequear si haya contradicciones"
+>>>>>>> d58eccab (Added record payment modal (#1705))
 }

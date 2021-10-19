@@ -113,15 +113,26 @@
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+<<<<<<< HEAD
     "autoprefixer": "^10.4.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
+=======
+    "autoprefixer": "^10.3.7",
+>>>>>>> d58eccab (Added record payment modal (#1705))
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "babel-eslint": "^10.1.0",
     "babel-plugin-syntax-decorators": "^6.13.0",
     "eslint-plugin-flowtype": "^5.10.0",
+<<<<<<< HEAD
+=======
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+>>>>>>> d58eccab (Added record payment modal (#1705))
     "enzyme": "^3.11.0",
     "faker": "^5.5.3",
     "jest-environment-jsdom-sixteen": "^2.0.0",

@@ -247,6 +247,7 @@
   "screenSize": "Screen size not compatible",
   "incompatibleMsg": "Either your browser window is too small, or you’re on a mobile device. Please switch to a desktop or tablet to view this page.",
   "noInfo": "no info",
+<<<<<<< HEAD
   "daily": "full day",
   "hourly": "hours",
   "recordDropdown": "Record new",
@@ -261,4 +262,10 @@
   "calculatedBy": "Calculated by",
   "pieForProvidersHasCalculated": "Pie for Providers has calculated your subsidy revenue for the month, based on attendance and state-specific rules.",
   "paymentFailed": "We're sorry, but something went wrong recording the payment. Please enter the information and try again."
+=======
+  "recordDropdown": "Record new",
+  "recordPaymentButton": "Payment",
+  "recordAPayment": "Record a payment",
+  "recordAChildsPayment": "Record each child's payment to check if there are any inconsistencies"
+>>>>>>> d58eccab (Added record payment modal (#1705))
 }

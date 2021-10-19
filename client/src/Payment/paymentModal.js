@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -184,3 +185,17 @@ PaymentModal.propTypes = {
   setChildPayments: PropTypes.func.isRequired,
   isFailedPaymentRequest: PropTypes.bool.isRequired
 }
+=======
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+
+export function PaymentModal() {
+  const { t } = useTranslation()
+
+  return (
+    <div>
+      <p>{t('recordAChildsPayment')}</p>
+    </div>
+  )
+}
+>>>>>>> d58eccab (Added record payment modal (#1705))

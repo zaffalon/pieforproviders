@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Button, Grid, Typography, Select, Menu, Dropdown, Modal } from 'antd'
+<<<<<<< HEAD
 import { LeftOutlined, DownOutlined, CloseOutlined } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
 import '_assets/styles/dashboard-overrides.css'
@@ -9,6 +10,12 @@ import '_assets/styles/payment-table-overrides.css'
 import PaymentModal from '../Payment'
 import { useApiResponse } from '_shared/_hooks/useApiResponse'
 import { useSelector } from 'react-redux'
+=======
+import { LeftOutlined, DownOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
+import '_assets/styles/dashboard-overrides.css'
+import PaymentModal from '../Payment'
+>>>>>>> d58eccab (Added record payment modal (#1705))
 
 const { useBreakpoint } = Grid
 const { Option } = Select
@@ -23,11 +30,15 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
   const [dateFilterValue, setDateFilterValue] = useState(dates.dateFilterValue)
   const [isPaymentModalVisible, setPaymentModalVisible] = useState(false)
   const [isActionsDropdownOpen, setActionsDropdownOpen] = useState(false)
+<<<<<<< HEAD
   const [totalPayment, setTotalPayment] = useState(0)
   const [childPayments, setChildPayments] = useState({})
   const { makeRequest } = useApiResponse()
   const [isFailedPaymentRequest, setIsFailedPaymentRequest] = useState(false)
   const { token } = useSelector(state => ({ token: state.auth.token }))
+=======
+
+>>>>>>> d58eccab (Added record payment modal (#1705))
   const matchAndReplaceDate = (dateString = '') => {
     const match = dateString.match(/^[A-Za-z]+/)
     return match ? dateString.replace(match[0], t(match[0].toLowerCase())) : ''
@@ -90,7 +101,11 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
   const dashboardActionDropdown = (
     <Dropdown
       overlay={dashboardActions}
+<<<<<<< HEAD
       className="flex ml-auto"
+=======
+      className="ml-auto flex"
+>>>>>>> d58eccab (Added record payment modal (#1705))
       trigger="click"
     >
       <Button
@@ -104,6 +119,7 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
     </Dropdown>
   )
 
+<<<<<<< HEAD
   const addPayment = async () => {
     const paymentsBatch = Object.entries(childPayments).flatMap(data => {
       return {
@@ -163,6 +179,18 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
         setChildPayments={setChildPayments}
         isFailedPaymentRequest={isFailedPaymentRequest}
       />
+=======
+  const paymentModal = (
+    <Modal
+      id="paymentModal"
+      title={
+        <div className="eyebrow-large text-center">{t('recordAPayment')}</div>
+      }
+      visible={isPaymentModalVisible}
+      onCancel={handlePaymentModalCancel}
+    >
+      <PaymentModal />
+>>>>>>> d58eccab (Added record payment modal (#1705))
     </Modal>
   )
 
