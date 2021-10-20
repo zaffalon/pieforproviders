@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -191,52 +192,50 @@ import React from 'react'
 =======
 import React, { useState } from 'react'
 >>>>>>> 210f8692 (added payment input component)
+=======
+import React, { useEffect, useState } from 'react'
+>>>>>>> f18b2e90 (added logic to sum up total payment)
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { Table } from 'antd'
 import PaymentDataCell from './paymentDataCell'
+import PropTypes from 'prop-types'
 
-export function PaymentModal() {
+export function PaymentModal({ setTotalPayment }) {
   const { cases } = useSelector(state => state)
   const { t } = useTranslation()
-  const [childPayments] = useState(false)
+  const [currentChildID, setCurrentChildID] = useState(false)
+  const [childPayments, setChildPayments] = useState({})
+
+  useEffect(() => {
+    initChildPayments()
+  }, [])
+
+  useEffect(() => {
+    calculateTotalPayments()
+  }, [childPayments])
 
   function initChildPayments() {
+    let payments = {}
+
     cases.forEach(child => {
-      childPayments.push(child.guaranteedRevenue)
+      payments[child.id] = child.guaranteedRevenue
     })
+
+    setChildPayments(payments)
   }
 
-  initChildPayments()
+  function calculateTotalPayments() {
+    const updatedTotal = Object.values(childPayments).reduce((a, b) => a + b, 0)
+    setTotalPayment(updatedTotal)
+  }
 
-  // const table = (
-  //   <table>
-  //     <thead>
-  //       <tr>
-  //         <th>{t('childName')}</th>
-  //         <th>{t('earnedRevenue')}</th>
-  //         <th>
-  //           {t('updatePayment')} ({t('differentPaymentAmount')})
-  //         </th>
-  //       </tr>
-  //     </thead>
-  //     <tbody>
-  //       {cases.map(childCase => (
-  //         <tr key={childCase.id}>
-  //           <td>{childCase.childName}</td>
-  //           <td>${childCase.guaranteedRevenue}</td>
-  //           <td>
-  //             <Checkbox /> {t('differentAmountFromState')} {currencyInput()}
-  //           </td>
-  //         </tr>
-  //       ))}
-  //     </tbody>
-  //   </table>
-  // )
+  function updateCurrentRowIndex(childID) {
+    setCurrentChildID(childID)
+  }
 
-  const updateTotalPayment = (value, index) => {
-    childPayments[index] = value
-    console.log(childPayments)
+  function updateTotalPayment(value) {
+    setChildPayments({ ...childPayments, [currentChildID]: value })
   }
 
   const columns = [
@@ -250,13 +249,8 @@ export function PaymentModal() {
     },
     {
       title: updatePaymentHeader,
-      render: index => {
-        return (
-          <PaymentDataCell
-            updateTotalPayment={updateTotalPayment}
-            columnIndex={index}
-          />
-        )
+      render: () => {
+        return <PaymentDataCell updateTotalPayment={updateTotalPayment} />
       }
     }
   ]
@@ -269,7 +263,20 @@ export function PaymentModal() {
     )
   }
 
-  const table = <Table bordered={false} columns={columns} dataSource={cases} />
+  const table = (
+    <Table
+      bordered={false}
+      columns={columns}
+      dataSource={cases}
+      onRow={childCase => {
+        return {
+          onMouseEnter: event => {
+            updateCurrentRowIndex(childCase.id)
+          }
+        }
+      }}
+    />
+  )
 
   return (
     <div>
@@ -278,4 +285,11 @@ export function PaymentModal() {
     </div>
   )
 }
+<<<<<<< HEAD
 >>>>>>> d58eccab (Added record payment modal (#1705))
+=======
+
+PaymentModal.propTypes = {
+  setTotalPayment: PropTypes.func.isRequired
+}
+>>>>>>> f18b2e90 (added logic to sum up total payment)

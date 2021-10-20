@@ -35,12 +35,16 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
   const [isPaymentModalVisible, setPaymentModalVisible] = useState(false)
   const [isActionsDropdownOpen, setActionsDropdownOpen] = useState(false)
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [totalPayment, setTotalPayment] = useState(0)
   const [childPayments, setChildPayments] = useState({})
   const { makeRequest } = useApiResponse()
   const [isFailedPaymentRequest, setIsFailedPaymentRequest] = useState(false)
   const { token } = useSelector(state => ({ token: state.auth.token }))
 =======
+=======
+  const [totalPayment, setTotalPayment] = useState(0)
+>>>>>>> f18b2e90 (added logic to sum up total payment)
 
 >>>>>>> d58eccab (Added record payment modal (#1705))
   const matchAndReplaceDate = (dateString = '') => {
@@ -195,12 +199,18 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
       onCancel={handlePaymentModalCancel}
       footer={
         <div className="flex m-auto">
-          <Button>{t('recordPaymentOf')}</Button>
+          <Button>
+            {t('recordPaymentOf')} ${totalPayment.toFixed()}
+          </Button>
         </div>
       }
     >
+<<<<<<< HEAD
       <PaymentModal />
 >>>>>>> d58eccab (Added record payment modal (#1705))
+=======
+      <PaymentModal setTotalPayment={setTotalPayment} />
+>>>>>>> f18b2e90 (added logic to sum up total payment)
     </Modal>
   )
 

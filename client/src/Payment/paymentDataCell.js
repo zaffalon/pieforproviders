@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export default function PaymentDataCell({ updateTotalPayment, resetPayment }) {
   const { t } = useTranslation()
   const [isDifferentPayment, setIsDifferentPayment] = useState(false)
@@ -56,6 +57,9 @@ export default function PaymentDataCell({ updateTotalPayment, resetPayment }) {
       {currencyInput}
 =======
 export default function PaymentDataCell({ updateTotalPayment, columnIndex }) {
+=======
+export default function PaymentDataCell({ updateTotalPayment }) {
+>>>>>>> f18b2e90 (added logic to sum up total payment)
   const { t } = useTranslation()
   const [isDifferentPayment, setIsDifferentPayment] = useState(false)
 
@@ -87,10 +91,14 @@ export default function PaymentDataCell({ updateTotalPayment, columnIndex }) {
 }
 
 PaymentDataCell.propTypes = {
+<<<<<<< HEAD
   updateTotalPayment: PropTypes.func.isRequired,
 <<<<<<< HEAD
   resetPayment: PropTypes.func.isRequired
 =======
   columnIndex: PropTypes.number.isRequired
 >>>>>>> 210f8692 (added payment input component)
+=======
+  updateTotalPayment: PropTypes.func.isRequired
+>>>>>>> f18b2e90 (added logic to sum up total payment)
 }
