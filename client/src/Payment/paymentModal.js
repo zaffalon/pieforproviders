@@ -4,6 +4,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
+<<<<<<< HEAD
 import { Alert, Table, Tooltip } from 'antd'
 import PaymentDataCell from './paymentDataCell'
 import PropTypes from 'prop-types'
@@ -198,6 +199,10 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { Table } from 'antd'
+=======
+import { Table, Dropdown, Menu } from 'antd'
+import { DownOutlined } from '@ant-design/icons'
+>>>>>>> f2cd5fa8 (Adding payment month dropdown)
 import PaymentDataCell from './paymentDataCell'
 import PropTypes from 'prop-types'
 import '_assets/styles/payment-table-overrides.css'
@@ -208,6 +213,7 @@ export function PaymentModal({ setTotalPayment }) {
   const { t } = useTranslation()
   const [currentChildID, setCurrentChildID] = useState(false)
   const [childPayments, setChildPayments] = useState({})
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     initChildPayments()
@@ -306,9 +312,61 @@ export function PaymentModal({ setTotalPayment }) {
     />
   )
 
+  function handleMenuClick(e) {
+    setVisible(false)
+  }
+
+  function handleVisibleChange(flag) {
+    setVisible(flag)
+  }
+  const monthNames = [
+    'jan',
+    'feb',
+    'mar',
+    'apr',
+    'may',
+    'jun',
+    'jul',
+    'aug',
+    'sep',
+    'oct',
+    'nov',
+    'dec'
+  ]
+  const current = new Date()
+  current.setMonth(current.getMonth() - 1)
+  const previousMonth = monthNames[current.getMonth()]
+  const previousMonthYear = current.getFullYear()
+
+  const menu = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="1">
+        {t(previousMonth)} {previousMonthYear}
+      </Menu.Item>
+    </Menu>
+  )
+
   return (
     <div>
       <p>{t('recordAChildsPayment')}</p>
+      <h3>{t('step1')}</h3>
+      <p>{t('choosePaymentMonth')}</p>
+      <Dropdown
+        overlay={menu}
+        onVisibleChange={handleVisibleChange}
+        visible={visible}
+      >
+        <a
+          href={() => false}
+          className="ant-dropdown-link"
+          onClick={e => e.preventDefault()}
+        >
+          {t(previousMonth)} {previousMonthYear}
+          <DownOutlined />
+        </a>
+      </Dropdown>
+      <h3>{t('step2')}</h3>
+      <p>{t('childrenPayment')}</p>
       {table}
     </div>
   )
