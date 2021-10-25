@@ -349,8 +349,11 @@ export function PaymentModal({ setTotalPayment }) {
   return (
     <div>
       <p>{t('recordAChildsPayment')}</p>
+      <br />
       <h3>{t('step1')}</h3>
       <p>{t('choosePaymentMonth')}</p>
+      <br />
+      &nbsp;&nbsp;
       <Dropdown
         overlay={menu}
         onVisibleChange={handleVisibleChange}
@@ -365,8 +368,11 @@ export function PaymentModal({ setTotalPayment }) {
           <DownOutlined />
         </a>
       </Dropdown>
+      <br />
+      <br />
       <h3>{t('step2')}</h3>
       <p>{t('childrenPayment')}</p>
+      <br />
       {table}
     </div>
   )
