@@ -190,16 +190,22 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
 =======
   const paymentModal = (
     <Modal
-      id="paymentModal"
       title={
         <div className="eyebrow-large text-center">{t('recordAPayment')}</div>
       }
       closeIcon={<CloseOutlined className="-btn-primary" />}
       visible={isPaymentModalVisible}
       onCancel={handlePaymentModalCancel}
+      //todo determine width. Maybe 50% of screen size
+      width={1000}
       footer={
-        <div className="flex m-auto">
-          <Button>
+        <div className="flex justify-center">
+          <Button
+            type="primary"
+            shape="round"
+            size="large"
+            className="record-payment-button"
+          >
             {t('recordPaymentOf')} ${totalPayment.toFixed()}
           </Button>
         </div>
