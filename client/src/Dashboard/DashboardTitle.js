@@ -210,6 +210,7 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
 >>>>>>> 26229f19 (Added the submit payment action)
   const paymentModal = (
     <Modal
+      id="payment-modal"
       title={
         <div className="eyebrow-large text-center">{t('recordAPayment')}</div>
       }

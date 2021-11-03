@@ -283,6 +283,11 @@
 >>>>>>> 210f8692 (added payment input component)
 =======
   "enterAmount": "Enter amount",
+<<<<<<< HEAD
   "calculatedBy": "Calculated by"
 >>>>>>> e9031c7c (added css for payment table)
+=======
+  "calculatedBy": "Calculated by",
+  "pieForProvidersHasCalculated": "Pie for Providers has calculated your subsidy revenue for the month, based on attendance and state-specific rules."
+>>>>>>> 8e6eff56 (css changes and tooltip)
 }

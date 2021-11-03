@@ -36,6 +36,7 @@
 .payment-table-text {
     font-size: medium;
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 
 .payment-modal div.ant-modal-footer {
@@ -48,3 +49,10 @@
 =======
 }
 >>>>>>> e9031c7c (added css for payment table)
+=======
+}
+
+#payment-modal div .ant-modal-footer {
+    border-top: 0;
+}
+>>>>>>> 8e6eff56 (css changes and tooltip)

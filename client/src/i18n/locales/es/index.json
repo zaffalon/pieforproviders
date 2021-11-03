@@ -283,6 +283,11 @@
 >>>>>>> 210f8692 (added payment input component)
 =======
   "enterAmount": "Pone el monto",
+<<<<<<< HEAD
   "calculatedBy": "Calculado por Pie"
 >>>>>>> e9031c7c (added css for payment table)
+=======
+  "calculatedBy": "Calculado por Pie",
+  "pieForProvidersHasCalculated": "Pie for Providers ha calculado tus ingresos del subsidio para el mes, basado en asistencia y reglas específicas del estado."
+>>>>>>> 8e6eff56 (css changes and tooltip)
 }
