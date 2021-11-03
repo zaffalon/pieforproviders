@@ -11,6 +11,7 @@ import '_assets/styles/payment-table-overrides.css'
 import PaymentModal from '../Payment'
 import { useApiResponse } from '_shared/_hooks/useApiResponse'
 import { useSelector } from 'react-redux'
+<<<<<<< HEAD
 =======
 import { LeftOutlined, DownOutlined } from '@ant-design/icons'
 =======
@@ -20,6 +21,8 @@ import { useTranslation } from 'react-i18next'
 import '_assets/styles/dashboard-overrides.css'
 import PaymentModal from '../Payment'
 >>>>>>> d58eccab (Added record payment modal (#1705))
+=======
+>>>>>>> 26229f19 (Added the submit payment action)
 
 const { useBreakpoint } = Grid
 const { Option } = Select
@@ -44,9 +47,15 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
 =======
 =======
   const [totalPayment, setTotalPayment] = useState(0)
+<<<<<<< HEAD
 >>>>>>> f18b2e90 (added logic to sum up total payment)
 
 >>>>>>> d58eccab (Added record payment modal (#1705))
+=======
+  const [childPayments, setChildPayments] = useState({})
+  const { makeRequest } = useApiResponse()
+  const { token } = useSelector(state => ({ token: state.auth.token }))
+>>>>>>> 26229f19 (Added the submit payment action)
   const matchAndReplaceDate = (dateString = '') => {
     const match = dateString.match(/^[A-Za-z]+/)
     return match ? dateString.replace(match[0], t(match[0].toLowerCase())) : ''
@@ -128,6 +137,9 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
   )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 26229f19 (Added the submit payment action)
   const addPayment = async () => {
     const paymentsBatch = Object.entries(childPayments).flatMap(data => {
       return {
@@ -150,6 +162,7 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
 
     if (response.ok) {
       setPaymentModalVisible(false)
+<<<<<<< HEAD
       setIsFailedPaymentRequest(false)
       return
     }
@@ -188,6 +201,13 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
         isFailedPaymentRequest={isFailedPaymentRequest}
       />
 =======
+=======
+    } else {
+      // TODO: handle bad request
+      console.log(response, 'bad request')
+    }
+  }
+>>>>>>> 26229f19 (Added the submit payment action)
   const paymentModal = (
     <Modal
       title={
@@ -205,6 +225,7 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
             shape="round"
             size="large"
             className="record-payment-button"
+            onClick={addPayment}
           >
             {t('recordPaymentOf')} ${totalPayment.toFixed()}
           </Button>
@@ -212,11 +233,20 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
       }
     >
 <<<<<<< HEAD
+<<<<<<< HEAD
       <PaymentModal />
 >>>>>>> d58eccab (Added record payment modal (#1705))
 =======
       <PaymentModal setTotalPayment={setTotalPayment} />
 >>>>>>> f18b2e90 (added logic to sum up total payment)
+=======
+      <PaymentModal
+        setTotalPayment={setTotalPayment}
+        lastMonth={lastMonth}
+        childPayments={childPayments}
+        setChildPayments={setChildPayments}
+      />
+>>>>>>> 26229f19 (Added the submit payment action)
     </Modal>
   )
 

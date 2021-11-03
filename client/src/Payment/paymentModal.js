@@ -208,11 +208,15 @@ import PropTypes from 'prop-types'
 import '_assets/styles/payment-table-overrides.css'
 import pieSliceLogo from '../_assets/pieSliceLogo.svg'
 
-export function PaymentModal({ setTotalPayment }) {
+export function PaymentModal({
+  setTotalPayment,
+  lastMonth,
+  childPayments,
+  setChildPayments
+}) {
   const { cases } = useSelector(state => state)
   const { t } = useTranslation()
   const [currentChildID, setCurrentChildID] = useState(false)
-  const [childPayments, setChildPayments] = useState({})
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -229,7 +233,6 @@ export function PaymentModal({ setTotalPayment }) {
     cases.forEach(child => {
       payments[child.id] = child.guaranteedRevenue
     })
-
     setChildPayments(payments)
   }
 
@@ -333,10 +336,9 @@ export function PaymentModal({ setTotalPayment }) {
     'nov',
     'dec'
   ]
-  const current = new Date()
-  current.setMonth(current.getMonth() - 1)
-  const previousMonth = monthNames[current.getMonth()]
-  const previousMonthYear = current.getFullYear()
+
+  const previousMonth = monthNames[lastMonth.getMonth()]
+  const previousMonthYear = lastMonth.getFullYear()
 
   const menu = (
     <Menu onClick={handleMenuClick}>
@@ -348,16 +350,14 @@ export function PaymentModal({ setTotalPayment }) {
 
   return (
     <div>
-      <p>{t('recordAChildsPayment')}</p>
-      <br />
-      <h3>{t('step1')}</h3>
-      <p>{t('choosePaymentMonth')}</p>
-      <br />
-      &nbsp;&nbsp;
+      <p className="mb-4">{t('recordAChildsPayment')}</p>
+      <h3 className="mb-2">{t('step1')}</h3>
+      <p className="mb-2">{t('choosePaymentMonth')}</p>
       <Dropdown
         overlay={menu}
         onVisibleChange={handleVisibleChange}
         visible={visible}
+        className="ml-2"
       >
         <a
           href={() => false}
@@ -368,11 +368,8 @@ export function PaymentModal({ setTotalPayment }) {
           <DownOutlined />
         </a>
       </Dropdown>
-      <br />
-      <br />
-      <h3>{t('step2')}</h3>
-      <p>{t('childrenPayment')}</p>
-      <br />
+      <h3 className="mt-4 mb-2">{t('step2')}</h3>
+      <p className="mb-4">{t('childrenPayment')}</p>
       {table}
     </div>
   )
@@ -382,6 +379,9 @@ export function PaymentModal({ setTotalPayment }) {
 =======
 
 PaymentModal.propTypes = {
-  setTotalPayment: PropTypes.func.isRequired
+  setTotalPayment: PropTypes.func.isRequired,
+  lastMonth: PropTypes.instanceOf(Date).isRequired,
+  childPayments: PropTypes.array.isRequired,
+  setChildPayments: PropTypes.func.isRequired
 }
 >>>>>>> f18b2e90 (added logic to sum up total payment)
