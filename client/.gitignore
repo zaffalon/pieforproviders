@@ -17,7 +17,11 @@
 .env.development.local
 .env.test.local
 .env.production.local
+<<<<<<< HEAD
 .idea/
+=======
+.idea/*
+>>>>>>> 9a77df81 (Added .idea to git ignore)
 
 npm-debug.log*
 yarn-debug.log*
