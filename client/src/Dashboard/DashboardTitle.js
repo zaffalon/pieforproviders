@@ -119,10 +119,14 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
     <Dropdown
       overlay={dashboardActions}
 <<<<<<< HEAD
+<<<<<<< HEAD
       className="flex ml-auto"
 =======
       className="ml-auto flex"
 >>>>>>> d58eccab (Added record payment modal (#1705))
+=======
+      className="flex ml-auto"
+>>>>>>> 9220d559 (fixed css with payment modal header)
       trigger="click"
     >
       <Button
@@ -210,8 +214,8 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
 >>>>>>> 26229f19 (Added the submit payment action)
   const paymentModal = (
     <Modal
-      id="payment-modal"
-      title={<div className="h2-large text-center">{t('recordAPayment')}</div>}
+      className="payment-modal"
+      title={<div className="text-center h2-large">{t('recordAPayment')}</div>}
       closeIcon={<CloseOutlined className="-btn-primary" />}
       visible={isPaymentModalVisible}
       onCancel={handlePaymentModalCancel}

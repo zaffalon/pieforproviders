@@ -52,14 +52,17 @@
 =======
 }
 
-#payment-modal .ant-modal-content.ant-modal-footer {
+.payment-modal div.ant-modal-footer {
     border-top: 0;
 }
 <<<<<<< HEAD
 >>>>>>> 8e6eff56 (css changes and tooltip)
 =======
 
-#payment-modal .ant-modal-content.ant-modal-header {
+.payment-modal div.ant-modal-header {
     border-bottom: 0;
 }
+<<<<<<< HEAD
 >>>>>>> a0942fb7 (removed month dropdown)
+=======
+>>>>>>> 9220d559 (fixed css with payment modal header)
