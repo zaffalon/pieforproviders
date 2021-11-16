@@ -39,6 +39,10 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
   const [isActionsDropdownOpen, setActionsDropdownOpen] = useState(false)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  const [isPaymentSuccessModalVisible, setPaymentSuccessModalVisible] = useState(false)
+>>>>>>> 3d584d59 (payment success)
   const [totalPayment, setTotalPayment] = useState(0)
   const [childPayments, setChildPayments] = useState({})
   const { makeRequest } = useApiResponse()
@@ -167,6 +171,7 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
     if (response.ok) {
       setPaymentModalVisible(false)
 <<<<<<< HEAD
+<<<<<<< HEAD
       setIsFailedPaymentRequest(false)
       return
     }
@@ -206,6 +211,9 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
       />
 =======
 =======
+=======
+      setPaymentSuccessModalVisible(true)
+>>>>>>> 3d584d59 (payment success)
     } else {
       // TODO: handle bad request
       console.log(response, 'bad request')
@@ -215,10 +223,10 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
   const paymentModal = (
     <Modal
       className="payment-modal"
-      title={<div className="text-center h2-large">{t('recordAPayment')}</div>}
+      title={<div className="text-center h2-large">{Success}</div>}
       closeIcon={<CloseOutlined className="-btn-primary" />}
       visible={isPaymentModalVisible}
-      onCancel={handlePaymentModalCancel}
+      on={handlePaymentModalCancel}
       //todo determine width. Maybe 50% of screen size
       width={1000}
       footer={
@@ -251,6 +259,38 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
       />
 >>>>>>> 26229f19 (Added the submit payment action)
     </Modal>
+  )
+
+  const handleOk = () => {
+    setPaymentSuccessModalVisible(false);
+  };
+
+  const paymentSuccessModal = (
+      <Modal
+          className="payment-success-modal"
+          title={<div className="text-center h2-large">{t('recordAPayment')}</div>}
+          closeIcon={<CloseOutlined className="-btn-primary" />}
+          visible={paymentSuccessModalVisible}
+          onOk={handleOk}
+          width={1000}
+          footer={
+            <div className="flex justify-right">
+              <Button
+                  type="primary"
+                  shape="round"
+                  size="large"
+                  className="payment-success-button"
+                  onClick={addPayment}
+              >
+                {Ok} ${totalPayment.toFixed()}
+              </Button>
+            </div>
+          }
+      >
+       <p>
+         You just recorded a payment for {lastMonth}
+       </p>
+      </Modal>
   )
 
   const renderDisabledMonth = () => (
@@ -291,6 +331,7 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
           </div>
 
           {paymentModal}
+          {paymentSuccessModal}
         </div>
       ) : (
         <div>
@@ -314,6 +355,7 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
           </Typography.Text>
 
           {paymentModal}
+          {paymentSuccessModal}
         </div>
       )}
     </div>
