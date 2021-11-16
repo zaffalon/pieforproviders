@@ -183,6 +183,18 @@
   "oct": "Oct",
   "nov": "Nov",
   "dec": "Dec",
+  "january": "January",
+  "february": "February",
+  "march": "March",
+  "april": "April",
+  "may": "May",
+  "june": "June",
+  "july": "July",
+  "august": "August",
+  "september": "September",
+  "october": "October",
+  "november": "November",
+  "december": "December",
   "definitions": "Definitions",
   "neExceededLimitDef": "The child has attended more days than they were approved for this month. You have earned the max monthly payment and will not be paid for additional days.",
   "neOnTrackDef": "The child is attending most or all of their days and you will likely receive most of the subsidy payment this month.",
@@ -264,8 +276,13 @@
 =======
   "paymentSuccess": "Success!",
   "paymentSuccessText": "You just recorded a payment for",
+<<<<<<< HEAD
   "paymentSuccessText2": "for $",
 >>>>>>> 49471554 (adding text)
+=======
+  "paymentSuccessText2": "for",
+  "okButton": "Ok",
+>>>>>>> 9e37e63c (adding payment success modal)
   "enterAmount": "Enter amount",
   "calculatedBy": "Calculated by",
   "pieForProvidersHasCalculated": "Pie for Providers has calculated your subsidy revenue for the month, based on attendance and state-specific rules.",

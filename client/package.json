@@ -40,7 +40,10 @@
     "react-router-dom": "^5.3.0",
     "react-scripts": "^4.0.3",
     "react-use-hotjar": "^1.2.0",
+<<<<<<< HEAD
     "tailwindcss": "^1.9.6",
+=======
+>>>>>>> 9e37e63c (adding payment success modal)
     "uuid": "^8.3.2",
     "xlsx": "^0.17.4"
   },
@@ -114,6 +117,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "autoprefixer": "^10.4.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
@@ -122,9 +126,13 @@
 =======
     "autoprefixer": "^10.3.7",
 >>>>>>> d58eccab (Added record payment modal (#1705))
+=======
+>>>>>>> 9e37e63c (adding payment success modal)
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
+    "autoprefixer": "^10.3.7",
     "babel-eslint": "^10.1.0",
     "babel-plugin-syntax-decorators": "^6.13.0",
+    "enzyme": "^3.11.0",
     "eslint-plugin-flowtype": "^5.10.0",
 <<<<<<< HEAD
 =======
@@ -132,10 +140,17 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+<<<<<<< HEAD
 >>>>>>> d58eccab (Added record payment modal (#1705))
     "enzyme": "^3.11.0",
     "faker": "^5.5.3",
     "jest-environment-jsdom-sixteen": "^2.0.0",
     "typescript": "^4.5.2"
+=======
+    "faker": "^5.5.3",
+    "jest-environment-jsdom-sixteen": "^2.0.0",
+    "tailwindcss": "^2.2.19",
+    "typescript": "^4.4.4"
+>>>>>>> 9e37e63c (adding payment success modal)
   }
 }
