@@ -280,7 +280,7 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
                   shape="round"
                   size="large"
                   className="payment-success-button"
-                  onClick={addPayment}
+                  onClick={handleOk}
               >
                 {Ok} ${totalPayment.toFixed()}
               </Button>
@@ -288,7 +288,7 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
           }
       >
        <p>
-         You just recorded a payment for {lastMonth}
+       {t('paymentSuccessText')} {lastMonth} {t('paymentSuccessText2')}
        </p>
       </Modal>
   )

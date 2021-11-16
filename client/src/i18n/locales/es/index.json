@@ -260,6 +260,12 @@
   "recordPaymentOf": "Anota un pago de",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  "paymentSuccess": "éxito!",
+  "paymentSuccessText": "Acabas de registrar un pago por",
+  "paymentSuccessText2": "por $",
+>>>>>>> 49471554 (adding text)
   "enterAmount": "Pone el monto",
   "calculatedBy": "Calculado por Pie",
   "pieForProvidersHasCalculated": "Pie for Providers ha calculado tus ingresos del subsidio para el mes, basado en asistencia y reglas específicas del estado.",
