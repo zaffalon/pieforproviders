@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export default function PaymentDataCell({ updateTotalPayment, resetPayment }) {
   const { t } = useTranslation()
   const [isDifferentPayment, setIsDifferentPayment] = useState(false)
@@ -60,6 +61,9 @@ export default function PaymentDataCell({ updateTotalPayment, columnIndex }) {
 =======
 export default function PaymentDataCell({ updateTotalPayment }) {
 >>>>>>> f18b2e90 (added logic to sum up total payment)
+=======
+export default function PaymentDataCell({ updateTotalPayment, resetPayment }) {
+>>>>>>> b4fdfb50 (fixed several warnings and added payment reset)
   const { t } = useTranslation()
   const [isDifferentPayment, setIsDifferentPayment] = useState(false)
 
@@ -76,7 +80,7 @@ export default function PaymentDataCell({ updateTotalPayment }) {
 
   function inputFormatter(value) {
     if (!isDifferentPayment) {
-      return null
+      return undefined
     }
 
     return `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -87,7 +91,12 @@ export default function PaymentDataCell({ updateTotalPayment }) {
   }
 
   const handleIsDifferentPaymentIsSet = e => {
-    setIsDifferentPayment(e.target.checked)
+    const eventValue = e.target.checked
+    setIsDifferentPayment(eventValue)
+
+    if (!eventValue) {
+      resetPayment()
+    }
   }
 
   return (
@@ -108,6 +117,7 @@ export default function PaymentDataCell({ updateTotalPayment }) {
 
 PaymentDataCell.propTypes = {
 <<<<<<< HEAD
+<<<<<<< HEAD
   updateTotalPayment: PropTypes.func.isRequired,
 <<<<<<< HEAD
   resetPayment: PropTypes.func.isRequired
@@ -117,4 +127,8 @@ PaymentDataCell.propTypes = {
 =======
   updateTotalPayment: PropTypes.func.isRequired
 >>>>>>> f18b2e90 (added logic to sum up total payment)
+=======
+  updateTotalPayment: PropTypes.func.isRequired,
+  resetPayment: PropTypes.func.isRequired
+>>>>>>> b4fdfb50 (fixed several warnings and added payment reset)
 }
