@@ -300,7 +300,7 @@ export default function DashboardTitle({ dates, userState, getDashboardData }) {
       onOk={handleOk}
       onCancel={handleOk}
       footer={
-        <div className="flex justify-right">
+        <div className="flex justify-end">
           <Button
             type="primary"
             shape="round"
