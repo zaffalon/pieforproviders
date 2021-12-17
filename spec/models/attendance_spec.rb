@@ -272,6 +272,57 @@ RSpec.describe Attendance, type: :model do
       expect(described_class.non_absences.length).to eq(2)
     end
   end
+
+  describe '#calculate_attended_time' do
+    it 'calculates the attended hours and days for the child_approval when it is created' do
+      expect(described_class.child_approval.attended_hours).to eq(0.0)
+      expect(described_class.child_approval.attended_days).to eq(0)
+      attendance.check_out = attendance.check_in + 3.hours + 11.minutes
+      attendance.save!
+      expect(described_class.child_approval.attended_hours).to eq(3.25)
+      expect(described_class.child_approval.attended_days).to eq(0)
+    end
+
+    it 'calculates the attended hours and days for the child_approval when it is edited' do
+      attendance.check_out = attendance.check_in + 3.hours + 11.minutes
+      attendance.save!
+      expect(described_class.child_approval.attended_hours).to eq(3.25)
+      expect(described_class.child_approval.attended_days).to eq(0)
+      attendance.check_out = attendance.check_in + 7.hours + 42.minutes
+      attendance.save!
+      expect(described_class.child_approval.attended_hours).to eq(0)
+      expect(described_class.child_approval.attended_days).to eq(1)
+      attendance.check_out = attendance.check_in + 11.hours + 12.minutes
+      attendance.save!
+      expect(described_class.child_approval.attended_hours).to eq(1.25)
+      expect(described_class.child_approval.attended_days).to eq(1)
+      attendance.check_out = attendance.check_in + 19.hours + 38.minutes
+      attendance.save!
+      expect(described_class.child_approval.attended_hours).to eq(8)
+      expect(described_class.child_approval.attended_days).to eq(1)
+    end
+
+    it 'calculates the attended hours and days for the child_approval as more attendances are added' do
+      attendance.check_out = attendance.check_in + 3.hours + 11.minutes
+      attendance.save!
+      expect(described_class.child_approval.attended_hours).to eq(3.25)
+      expect(described_class.child_approval.attended_days).to eq(0)
+      # same service day as the first attendance
+      create(:nebraska_hourly_attendance, check_in: attendance.check_out + 1.hour, check_out: attendance.check_out + 4.hours + 23.minutes)
+      expect(described_class.child_approval.attended_hours).to eq(0)
+      expect(described_class.child_approval.attended_days).to eq(1)
+      create(:nebraska_hourly_attendance, check_in: attendance.check_out + 6.hours, check_out: attendance.check_out + 12.hours + 37.minutes)
+      expect(described_class.child_approval.attended_hours).to eq(3.25)
+      expect(described_class.child_approval.attended_days).to eq(1)
+      create(:nebraska_hourly_attendance, check_in: attendance.check_out + 13.hours, check_out: attendance.check_out + 17.hours + 29.minutes)
+      expect(described_class.child_approval.attended_hours).to eq(8)
+      expect(described_class.child_approval.attended_days).to eq(1)
+      # new service day
+      create(:nebraska_hourly_attendance, check_in: attendance.check_out + 4.days, check_out: attendance.check_out + 4.days + 3.hours + 12.minutes)
+      expect(described_class.child_approval.attended_hours).to eq(11.25)
+      expect(described_class.child_approval.attended_days).to eq(1)
+    end
+  end
 end
 # == Schema Information
 #

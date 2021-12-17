@@ -6,6 +6,7 @@ class Attendance < UuidApplicationRecord
   before_validation :calc_time_in_care, if: :child_approval
   before_validation :find_or_create_service_day, if: :check_in
   before_save :remove_absences
+  after_save :recalculate_approval_duration
 
   belongs_to :child_approval
   belongs_to :service_day
@@ -113,6 +114,22 @@ class Attendance < UuidApplicationRecord
     return if check_out.blank? || check_in.blank?
 
     errors.add(:check_out, 'must be after the check in time') if check_out < check_in
+  end
+
+  def recalculate_approval_duration
+    child_approval.update!(attended_days: attended_days, attended_hours: attended_hours)
+  end
+
+  def attended_hours
+    approval_days_to_count_for_duration_limits.reduce(0) do |sum, service_day|
+      sum + Nebraska::Daily::HoursDurationCalculator.new(total_time_in_care: service_day.total_time_in_care).call
+    end
+  end
+
+  def attended_days
+    approval_days_to_count_for_duration_limits.reduce(0) do |sum, service_day|
+      sum + Nebraska::Daily::DaysDurationCalculator.new(total_time_in_care: service_day.total_time_in_care).call
+    end
   end
 end
 
