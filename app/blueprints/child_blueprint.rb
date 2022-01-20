@@ -31,6 +31,9 @@ class ChildBlueprint < Blueprinter::Base
   end
 
   view :nebraska_dashboard do
+    field :business_name do |child, _|
+      child.business.name
+    end
     association :nebraska_dashboard_case, blueprint: Nebraska::DashboardCaseBlueprint do |child, options|
       options[:filter_date] ||= Time.current
       Nebraska::DashboardCase.new(child: child, filter_date: options[:filter_date])

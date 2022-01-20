@@ -29,7 +29,6 @@ class UserBlueprint < Blueprinter::Base
     field(:first_approval_effective_date) do |user, _options|
       user.first_approval_effective_date
     end
-    association :businesses, blueprint: BusinessBlueprint, view: :nebraska_dashboard
     field :max_revenue do
       'N/A'
     end

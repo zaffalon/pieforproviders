@@ -46,6 +46,14 @@ module Api
         @child.update!(deleted_at: Time.current.to_date)
       end
 
+      def case_list_for_dashboard
+        if current_user.state == 'NE' || current_user.admin?
+          render json: nebraska_dashboard
+        else
+          render json: {}
+        end
+      end
+
       private
 
       def set_child
@@ -62,6 +70,22 @@ module Api
         attributes += %i[date_of_birth full_name business_id active last_active_date inactive_reason]
         attributes += [{ approvals_attributes: %i[case_number copay_cents copay_frequency effective_on expires_on] }]
         params.require(:child).permit(attributes)
+      end
+
+      def filter_date
+        if params[:filter_date]
+          Time.zone.parse(params[:filter_date])&.at_end_of_day
+        else
+          Time.current.at_end_of_day
+        end
+      end
+
+      def nebraska_dashboard
+        ChildBlueprint.render(
+          policy_scope(Child.with_dashboard_case.page(params[:page] || 1)),
+          view: :nebraska_dashboard,
+          filter_date: filter_date
+        )
       end
 
       def make_approval_amounts

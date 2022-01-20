@@ -15,8 +15,5 @@ class BusinessBlueprint < Blueprinter::Base
   view :nebraska_dashboard do
     field :name
     exclude :id
-    association :children, name: :cases, blueprint: ChildBlueprint, view: :nebraska_dashboard do |business, options|
-      business.children.with_dashboard_case(options[:filter_date])
-    end
   end
 end
