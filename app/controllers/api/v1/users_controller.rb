@@ -9,15 +9,20 @@ module Api
 
       # GET /users
       def index
-        @users = policy_scope(User.includes(:businesses))
         authorize User
 
-        render json: UserBlueprint.render(@users)
+        render json: UserBlueprint.render(
+          policy_scope(User.includes(:businesses)),
+          view: current_user.state == 'NE' || current_user.admin? ? :nebraska_dashboard : :illinois_dashboard
+        )
       end
 
       # GET /profile or GET /users/:id
       def show
-        render json: UserBlueprint.render(@user)
+        render json: UserBlueprint.render(
+          @user,
+          view: @user.state == 'NE' || current_user.admin? ? :nebraska_dashboard : :illinois_dashboard
+        )
       end
 
       private

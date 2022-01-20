@@ -55,6 +55,7 @@ class Child < UuidApplicationRecord
           not_deleted
             .distinct
             .approved_for_date(date)
+            .includes(business: :user)
             .includes(:schedules, :child_approvals, :nebraska_approval_amounts)
         }
 

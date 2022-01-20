@@ -4,6 +4,8 @@ module Api
   module V1
     # API for user children
     class ChildrenController < Api::V1::ApiController
+      include Skylight::Helpers
+
       before_action :set_child, only: %i[show update destroy]
       before_action :authorize_user, only: %i[show update destroy]
 
@@ -46,6 +48,7 @@ module Api
         @child.update!(deleted_at: Time.current.to_date)
       end
 
+      instrument_method
       def case_list_for_dashboard
         if current_user.state == 'NE' || current_user.admin?
           render json: nebraska_dashboard

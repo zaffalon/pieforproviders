@@ -46,7 +46,9 @@ module Nebraska
     end
 
     def family_fee
-      return 0 if approval.children.length != 1 && approval.child_with_most_scheduled_hours(date: filter_date) != child
+      if approval&.children&.length != 1 && approval&.child_with_most_scheduled_hours(date: filter_date) != child
+        return 0
+      end
 
       active_nebraska_approval_amount&.family_fee || 0.00
     end
@@ -337,11 +339,11 @@ module Nebraska
       return unless service_days_this_child_approval
 
       days = []
-      start_date = approval.effective_on.to_date
+      start_date = approval&.effective_on&.to_date
       end_date = filter_date
       date = start_date
 
-      while date <= end_date.at_end_of_month
+      while date && date <= end_date.at_end_of_month
         days = [days, reimbursable_absent_service_days(month: date)].compact.reduce([], :|)
         date += 1.month
       end
