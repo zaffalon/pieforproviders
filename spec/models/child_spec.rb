@@ -62,8 +62,23 @@ RSpec.describe Child, type: :model do
   it { is_expected.to accept_nested_attributes_for :child_approvals }
 
   describe 'scopes' do
-    let(:inactive_child) { create(:child, active: false) }
-    let(:deleted_child) { create(:child, deleted_at: Time.current.to_date) }
+    let(:child) { create(:necc_child) }
+    let(:inactive_child) do
+      create(
+        :necc_child,
+        active: false,
+        effective_date: child.approvals.first.effective_on.at_beginning_of_month - 2.days
+      )
+    end
+    let(:deleted_child) do
+      create(
+        :necc_child,
+        effective_date: child.approvals.first.effective_on.at_end_of_month + 3.days,
+        deleted_at: Time.current.to_date
+      )
+    end
+    let(:child_effective) { child.approvals.first.effective_on.in_time_zone(child.timezone).at_beginning_of_day }
+    let(:child_expires) { child.approvals.first.expires_on.in_time_zone(child.timezone).at_end_of_day }
 
     it 'only displays active children in the active scope' do
       expect(described_class.active).to include(child)
@@ -71,17 +86,31 @@ RSpec.describe Child, type: :model do
       expect(described_class.active).to include(deleted_child)
     end
 
-    it 'only displays children approved for the requested date in the approved_for_date scope' do
-      earliest_effective = child.approvals.first.effective_on.at_beginning_of_day
-      latest_effective = child.approvals.first.expires_on.at_end_of_day
-      expect(described_class.approved_for_date(earliest_effective)).to include(child)
-      expect(described_class.approved_for_date(earliest_effective)).to include(inactive_child)
-      expect(described_class.approved_for_date(earliest_effective)).to include(deleted_child)
-      expect(described_class.approved_for_date(earliest_effective - 1.minute)).to eq([])
-      # if it is the child's last day of their approval, it will show them
-      expect(described_class.approved_for_date(latest_effective)).to include(child)
-      # if it is after the child's last day of their approval, it will not
-      expect(described_class.approved_for_date(latest_effective + 1.minute)).to eq([])
+    it 'only displays children approved by the beginning of the month of the requested date' do
+      expect(described_class.approved_for_date(child_effective)).to include(child)
+      expect(described_class.approved_for_date(child_effective)).to include(inactive_child)
+      expect(described_class.approved_for_date(child_effective)).not_to include(deleted_child)
+
+      expect(
+        described_class
+        .approved_for_date(child_effective.at_beginning_of_month - 1.minute)
+      ).not_to include(child)
+      expect(
+        described_class
+        .approved_for_date(child_effective.at_beginning_of_month - 1.minute)
+      ).to include(inactive_child)
+      expect(
+        described_class
+        .approved_for_date(child_effective.at_beginning_of_month - 1.minute)
+      ).not_to include(deleted_child)
+
+      expect(described_class.approved_for_date(child_expires)).to include(child)
+      expect(described_class.approved_for_date(child_expires)).not_to include(inactive_child)
+      expect(described_class.approved_for_date(child_expires)).to include(deleted_child)
+
+      expect(described_class.approved_for_date(child_expires.at_end_of_month + 1.minute)).not_to include(child)
+      expect(described_class.approved_for_date(child_expires.at_end_of_month + 1.minute)).not_to include(inactive_child)
+      expect(described_class.approved_for_date(child_expires.at_end_of_month + 1.minute)).to include(deleted_child)
     end
 
     it 'displays inactive children but not deleted children in the not_deleted scope' do
