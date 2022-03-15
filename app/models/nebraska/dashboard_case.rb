@@ -60,7 +60,7 @@ module Nebraska
       Appsignal.instrument_sql(
         'dashboard_case.family_fee'
       ) do
-        if approval.children.length != 1 && approval.child_with_most_scheduled_hours(date: filter_date) != child
+        if approval&.children&.length != 1 && approval&.child_with_most_scheduled_hours(date: filter_date) != child
           return Money.from_amount(0)
         end
 
@@ -222,7 +222,7 @@ module Nebraska
       Appsignal.instrument_sql(
         'dashboard_case.approval'
       ) do
-        @approval ||= child&.approvals&.active_on(filter_date)&.first
+        @approval ||= child&.approvals&.active_for_month(filter_date)&.first
       end
     end
 

@@ -21,6 +21,12 @@ class Approval < UuidApplicationRecord
 
   scope :active, -> { where(active: true) }
   scope :active_on, ->(date) { where(effective_on: ..date).where(expires_on: [date.., nil]).order(updated_at: :desc) }
+  scope :active_for_month,
+        lambda { |date|
+          where(effective_on: ..date&.at_end_of_month)
+            .where(expires_on: [date&.at_beginning_of_month.., nil])
+            .order(updated_at: :desc)
+        }
   # TODO: needs to change to timestamp and get sent from front-end with timestamps
 
   monetize :copay_cents, allow_nil: true
