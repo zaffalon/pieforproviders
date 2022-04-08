@@ -8,10 +8,14 @@ task copy_approvals_effective_on_and_expires_on_dates: :environment do
     approvals.each do |approval|
       next if approval.child_approvals.empty?
 
-      approval.child_approvals.update_all({
-                                            expires_on: approval.expires_on,
-                                            effective_on: approval.effective_on
-                                          })
+      # rubocop:disable Rails/SkipsModelValidations
+      approval.child_approvals.update_all(
+        {
+          expires_on: approval.expires_on,
+          effective_on: approval.effective_on
+        }
+      )
+      # rubocop:enable Rails/SkipsModelValidations
     end
   end
 end
