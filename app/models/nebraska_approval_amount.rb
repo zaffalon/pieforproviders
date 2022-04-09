@@ -10,7 +10,11 @@ class NebraskaApprovalAmount < UuidApplicationRecord
   scope :active_on,
         lambda { |date|
           where(
-            'nebraska_approval_amounts.effective_on <= ? and (nebraska_approval_amounts.expires_on is null or nebraska_approval_amounts.expires_on > ?)', date, date
+            # rubocop:disable Layout/LineLength
+            'nebraska_approval_amounts.effective_on <= ? and (nebraska_approval_amounts.expires_on is null or nebraska_approval_amounts.expires_on > ?)',
+            # rubocop:enable Layout/LineLength
+            date,
+            date
           ).order(updated_at: :desc)
         }
 
