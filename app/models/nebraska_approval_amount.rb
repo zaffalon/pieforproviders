@@ -9,7 +9,9 @@ class NebraskaApprovalAmount < UuidApplicationRecord
 
   scope :active_on,
         lambda { |date|
-          where('effective_on <= ? and (expires_on is null or expires_on > ?)', date, date).order(updated_at: :desc)
+          where(
+            'nebraska_approval_amounts.effective_on <= ? and (nebraska_approval_amounts.expires_on is null or nebraska_approval_amounts.expires_on > ?)', date, date
+          ).order(updated_at: :desc)
         }
 
   def family_fee
