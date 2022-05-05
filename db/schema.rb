@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_06_213436) do
+ActiveRecord::Schema.define(version: 2022_05_05_035142) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
@@ -35,7 +36,7 @@ ActiveRecord::Schema.define(version: 2022_04_06_213436) do
   create_table "attendances", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "check_in", null: false
     t.datetime "check_out"
-    t.interval "time_in_care", null: false, comment: "Calculated: check_out time - check_in time"
+    t.interval "time_in_care", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "child_approval_id", null: false
@@ -86,12 +87,12 @@ ActiveRecord::Schema.define(version: 2022_04_06_213436) do
     t.decimal "special_needs_daily_rate"
     t.decimal "special_needs_hourly_rate"
     t.boolean "enrolled_in_school"
+    t.decimal "authorized_weekly_hours", precision: 5, scale: 2
     t.string "rate_type"
     t.uuid "rate_id"
-    t.decimal "authorized_weekly_hours", precision: 5, scale: 2
     t.date "deleted_at"
-    t.date "effective_on"
-    t.date "expires_on"
+    t.date "effective_on", null: false
+    t.date "expires_on", null: false
     t.index ["approval_id"], name: "index_child_approvals_on_approval_id"
     t.index ["child_id"], name: "index_child_approvals_on_child_id"
     t.index ["rate_type", "rate_id"], name: "index_child_approvals_on_rate"
@@ -118,6 +119,12 @@ ActiveRecord::Schema.define(version: 2022_04_06_213436) do
   create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
+  create_table "good_job_processes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "state"
+  end
+
   create_table "good_jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "queue_name"
     t.integer "priority"
@@ -131,9 +138,12 @@ ActiveRecord::Schema.define(version: 2022_04_06_213436) do
     t.uuid "active_job_id"
     t.text "concurrency_key"
     t.text "cron_key"
+    t.datetime "cron_at"
     t.index ["active_job_id", "created_at"], name: "index_good_jobs_on_active_job_id_and_created_at"
+    t.index ["active_job_id"], name: "index_good_jobs_on_active_job_id"
     t.index ["concurrency_key"], name: "index_good_jobs_on_concurrency_key_when_unfinished", where: "(finished_at IS NULL)"
     t.index ["cron_key", "created_at"], name: "index_good_jobs_on_cron_key_and_created_at"
+    t.index ["cron_key", "cron_at"], name: "index_good_jobs_on_cron_key_and_cron_at", unique: true
     t.index ["queue_name", "scheduled_at"], name: "index_good_jobs_on_queue_name_and_scheduled_at", where: "(finished_at IS NULL)"
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
