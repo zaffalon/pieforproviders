@@ -12,8 +12,6 @@ class ChildApproval < UuidApplicationRecord
 
   delegate :user, to: :child
   delegate :business, to: :child
-  delegate :effective_on, to: :approval
-  delegate :expires_on, to: :approval
   delegate :case_number, to: :approval
 
   validates :effective_on, presence: true
