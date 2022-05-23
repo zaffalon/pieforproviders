@@ -205,7 +205,9 @@ def create_case(first_name:,
         special_needs_daily_rate: special_needs_rate ? rand(0.0..20).round(2) : nil,
         special_needs_hourly_rate: special_needs_rate ? rand(0.0..10).round(2) : nil,
         enrolled_in_school: Faker::Boolean.boolean,
-        authorized_weekly_hours: rand(0..45)
+        authorized_weekly_hours: rand(0..45),
+        effective_on: 9.months.ago.to_date,
+        expires_on: (Time.now + 9.months).to_date
       )
     end
   end
