@@ -2,6 +2,8 @@
 
 # An individual child on a family's approval letter
 class ChildApproval < UuidApplicationRecord
+  after_create_commit :create_default_schedule, unless: proc { |child_approval| child_approval.child.schedules.present? }
+
   belongs_to :child
   belongs_to :approval
   belongs_to :rate, polymorphic: true, optional: true
@@ -27,6 +29,18 @@ class ChildApproval < UuidApplicationRecord
 
   def special_needs_hourly_rate
     Money.from_amount(super) if super
+  end
+
+  def create_default_schedule
+    # this will run for Mon (1) - Fri (5)
+    5.times do |idx|
+      Schedule.create!(
+        child: child,
+        weekday: idx + 1,
+        duration: 28_800, # seconds in 8 hours
+        effective_on: effective_on
+      )
+    end
   end
 end
 

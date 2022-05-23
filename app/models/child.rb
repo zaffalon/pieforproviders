@@ -2,8 +2,6 @@
 
 # A child in care at businesses who need subsidy assistance
 class Child < UuidApplicationRecord
-  before_save :find_or_create_approvals
-  after_create_commit :create_default_schedule, unless: proc { |child| child.schedules.present? }
   after_save_commit :associate_rate, unless: proc { |child| child.active_previously_changed?(from: true, to: false) }
 
   belongs_to :business
@@ -137,28 +135,6 @@ class Child < UuidApplicationRecord
   end
 
   private
-
-  def find_or_create_approvals
-    self.approvals = approvals.map do |approval|
-      Approval.find_or_create_by(
-        case_number: approval.case_number,
-        effective_on: approval.effective_on,
-        expires_on: approval.expires_on
-      )
-    end
-  end
-
-  def create_default_schedule
-    # this will run for Mon (1) - Fri (5)
-    5.times do |idx|
-      Schedule.create!(
-        child: self,
-        weekday: idx + 1,
-        duration: 28_800, # seconds in 8 hours
-        effective_on: approvals.first.effective_on
-      )
-    end
-  end
 
   def associate_rate
     RateAssociatorJob.perform_later(id)
