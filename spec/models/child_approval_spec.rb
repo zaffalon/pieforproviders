@@ -22,9 +22,9 @@ end
 #  id                        :uuid             not null, primary key
 #  authorized_weekly_hours   :decimal(5, 2)
 #  deleted_at                :date
-#  effective_on              :date
+#  effective_on              :date             not null
 #  enrolled_in_school        :boolean
-#  expires_on                :date
+#  expires_on                :date             not null
 #  full_days                 :integer
 #  hours                     :decimal(, )
 #  rate_type                 :string

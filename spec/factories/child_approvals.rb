@@ -11,6 +11,8 @@ FactoryBot.define do
     special_needs_hourly_rate { special_needs_rate ? rand(0.0..10).round(2) : nil }
     enrolled_in_school { false }
     authorized_weekly_hours { rand(0.0..45.0).round(2) }
+    effective_on { 9.months.ago.to_date }
+    expires_on { effective_on + 1.year }
 
     factory :child_approval_with_attendances do
       after :create do |child_approval|
@@ -27,9 +29,9 @@ end
 #  id                        :uuid             not null, primary key
 #  authorized_weekly_hours   :decimal(5, 2)
 #  deleted_at                :date
-#  effective_on              :date
+#  effective_on              :date             not null
 #  enrolled_in_school        :boolean
-#  expires_on                :date
+#  expires_on                :date             not null
 #  full_days                 :integer
 #  hours                     :decimal(, )
 #  rate_type                 :string
