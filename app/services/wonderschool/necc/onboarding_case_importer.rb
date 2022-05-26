@@ -37,7 +37,8 @@ module Wonderschool
         @business = Business.find_or_create_by!(required_business_params)
         @child = Child.find_or_initialize_by(child_params)
         unless @child.approvals.find_by(approval_params)
-          @child.approvals << Approval.find_or_create_by!(approval_params)
+          approval = Approval.find_or_create_by!(approval_params)
+          @child.child_approvals.create(child_approval_params, approval: approval)
         end
 
         raise NotEnoughInfo unless @child.valid?
@@ -66,8 +67,6 @@ module Wonderschool
         @child.save
         @business.update!(optional_business_params)
         update_overlapping_approvals
-        @child_approval = @child.reload.child_approvals.find_by(approval: @child.approvals.find_by(approval_params))
-        update_child_approval
         update_nebraska_approval_amounts
       end
 
@@ -100,10 +99,6 @@ module Wonderschool
         overlapping_approval_amounts.select! { |naa| date.between?(naa.effective_on, naa.expires_on) }
         overlapping_approval_amounts.presence&.map { |oaa| oaa.update!(expires_on: date - 1.day) }
         existing_aa&.update!(nebraska_approval_amount_params(period))
-      end
-
-      def update_child_approval
-        @child_approval&.update!(child_approval_params)
       end
 
       def approval_params
@@ -154,7 +149,9 @@ module Wonderschool
           special_needs_rate: to_boolean(@row['Special Needs Rate?']),
           special_needs_daily_rate: to_float(@row['Special Needs Daily Rate']),
           special_needs_hourly_rate: to_float(@row['Special Needs Hourly Rate']),
-          enrolled_in_school: to_boolean(@row['Enrolled in School (Kindergarten or later)'])
+          enrolled_in_school: to_boolean(@row['Enrolled in School (Kindergarten or later)']),
+          effective_on: @row['Effective on'],
+          expires_on: @row['Expires on']
         }
       end
 
