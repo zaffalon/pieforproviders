@@ -2,7 +2,7 @@
 
 # An individual child on a family's approval letter
 class ChildApproval < UuidApplicationRecord
-  after_create_commit :create_default_schedule, unless: proc { |child_approval| child_approval.child.schedules.present? }
+  before_create :create_default_schedule, unless: proc { |child_approval| child_approval.child.schedules.present? }
 
   belongs_to :child
   belongs_to :approval

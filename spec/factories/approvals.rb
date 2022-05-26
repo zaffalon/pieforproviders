@@ -23,6 +23,7 @@ FactoryBot.define do
         evaluator.num_children.times do
           create(:child_approval, child: create(:child, business: business), approval: approval)
         end
+        approval.reload
       end
     end
 
