@@ -6,7 +6,17 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     business
-    approvals { [create(:approval, create_children: false)] }
+
+    transient do
+      create_approval { true }
+    end
+
+    after(:create) do |child, evaluator|
+      if evaluator.create_approval
+        create(:child_approval, approval: create(:approval, create_children: false), child: child)
+        child.reload
+      end
+    end
 
     factory :child_in_illinois do
       after(:create) do |child|
@@ -27,7 +37,7 @@ FactoryBot.define do
 
       business { create(:business, :nebraska_ldds) }
       wonderschool_id { SecureRandom.uuid }
-      approvals { [create(:approval, effective_on: effective_date, create_children: false)] }
+      child_approvals { [create(:child_approval, effective_on: effective_date, approval: create(:approval, effective_on: effective_date, create_children: false), child: instance)] }
 
       after(:create) do |child, evaluator|
         create(:nebraska_approval_amount,
