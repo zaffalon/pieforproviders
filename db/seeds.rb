@@ -156,23 +156,31 @@ def create_case(first_name:,
 
   frequency = copay ? Approval::COPAY_FREQUENCIES.sample : nil
 
-  approvals = [
-    Approval.find_or_create_by!(
-      case_number: case_number,
-      copay_cents: copay,
-      copay_frequency: frequency,
+  child_approvals = [
+    ChildApproval.new(
       effective_on: effective_on,
-      expires_on: effective_on + 1.year - 1.day
+      expires_on: effective_on + 1.year - 1.day,
+      approval: Approval.find_or_initialize_by(
+        case_number: case_number,
+        copay_cents: copay,
+        copay_frequency: frequency,
+        effective_on: effective_on,
+        expires_on: effective_on + 1.year - 1.day
+      )
     )
   ]
 
   if add_expired_approval
-    approvals << Approval.find_or_create_by!(
-      case_number: case_number,
-      copay_cents: copay ? copay - 1200 : nil,
-      copay_frequency: frequency,
+    child_approvals << ChildApproval.new(
       effective_on: effective_on - 1.year,
-      expires_on: effective_on - 1.day
+      expires_on: effective_on - 1.day,
+      approval: Approval.find_or_initialize_by(
+        case_number: case_number,
+        copay_cents: copay ? copay - 1200 : nil,
+        copay_frequency: frequency,
+        effective_on: effective_on - 1.year,
+        expires_on: effective_on - 1.day
+      )
     )
   end
 
@@ -182,11 +190,12 @@ def create_case(first_name:,
                                       last_name: last_name,
                                       date_of_birth: date_of_birth,
                                       dhs_id: dhs_id)
-  child.approvals << approvals
+  child.child_approvals << child_approvals
   child.save!
 
   case child.state
   when 'IL'
+    child.save!
     12.times do |idx|
       IllinoisApprovalAmount.create!(
         child_approval: child.active_child_approval(Time.current),
