@@ -37,8 +37,12 @@ module Wonderschool
         @business = Business.find_or_create_by!(required_business_params)
         @child = Child.find_or_initialize_by(child_params)
         unless @child.approvals.find_by(approval_params)
-          approval = Approval.find_or_create_by!(approval_params)
-          @child.child_approvals.create(child_approval_params, approval: approval)
+          @child_approval = ChildApproval.new(
+            effective_on: @row['Effective on'],
+            expires_on: @row['Expires on'],
+            child: @child,
+            approval: Approval.find_or_initialize_by(approval_params)
+          )
         end
 
         raise NotEnoughInfo unless @child.valid?
@@ -65,9 +69,12 @@ module Wonderschool
 
       def build_case
         @child.save
+        @child_approval.save!
         @business.update!(optional_business_params)
         update_overlapping_approvals
-        update_nebraska_approval_amounts
+        @child_approval = @child.reload.child_approvals.find_by(approval: @child.approvals.find_by(approval_params))
+        update_child_approval
+        update_nebraska_approval_amounts 
       end
 
       def update_nebraska_approval_amounts
@@ -99,6 +106,10 @@ module Wonderschool
         overlapping_approval_amounts.select! { |naa| date.between?(naa.effective_on, naa.expires_on) }
         overlapping_approval_amounts.presence&.map { |oaa| oaa.update!(expires_on: date - 1.day) }
         existing_aa&.update!(nebraska_approval_amount_params(period))
+      end
+
+      def update_child_approval
+        @child_approval&.update!(child_approval_params)
       end
 
       def approval_params
