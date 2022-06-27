@@ -21,7 +21,7 @@ export function Confirmation({ location }) {
       const confirmationToken = params.get('confirmation_token')
       const response = await makeRequest({
         type: 'get',
-        url: `confirmation${
+        url: `/confirmation${
           confirmationToken ? `?confirmation_token=${confirmationToken}` : ''
         }`
       })

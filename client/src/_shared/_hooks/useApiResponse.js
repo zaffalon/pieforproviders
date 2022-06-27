@@ -11,6 +11,7 @@ export const useApiResponse = () => {
 
   const makeRequest = async request => {
     const { type, url, data, headers: requestHeaders = {} } = request
+    const proxyPrefixPlusUrl = '/api' + url
 
     const headers = {
       ...requestHeaders,
@@ -22,14 +23,14 @@ export const useApiResponse = () => {
     const result = (async () => {
       switch (type) {
         case 'post':
-          return await post(url, data, headers)
+          return await post(proxyPrefixPlusUrl, data, headers)
         case 'put':
-          return await put(url, data, headers)
+          return await put(proxyPrefixPlusUrl, data, headers)
         case 'del':
-          return await del(url, headers)
+          return await del(proxyPrefixPlusUrl, headers)
         case 'get':
         default:
-          return await get(url, headers)
+          return await get(proxyPrefixPlusUrl, headers)
       }
     })()
     return result

@@ -23,4 +23,4 @@ echo 'Port number: 15432'
 echo 'Database: pie_development'
 echo 'Username and password: specified in .docker-env/development/database'
 echo ''
-docker-compose up rails
+docker-compose up

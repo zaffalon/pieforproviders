@@ -18,6 +18,8 @@ services:
     ports:
       - "1025:1025"
       - "1080:1080"
+    networks:
+      - pie_network
 
   database:
     image: postgres
@@ -28,8 +30,13 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "15432:5432"
+    networks:
+      - pie_network
 
   rails:
+    depends_on:
+      - database
+      - mailcatcher
     container_name: pie_rails
     build: .
     volumes:
@@ -38,27 +45,51 @@ services:
       - BUNDLE_PATH=/home/docker_user/pie/tmp/bundle
       - BUNDLE_APP_CONFIG=/home/docker_user/pie/.bundle
       - GEM_HOME=/home/docker_user/pie/tmp/gem_home
+      - LAUNCHY_DRY_RUN=true
+      - BROWSER=/dev/null
+      - MAILCATCHER=true
+      - REACT_APP_PROXY_HOST=http://rails:3001
     env_file:
       - .docker-env/development/database
     user: docker_user
-    command: bundle exec rails server --binding=0.0.0.0 --port=3000
+    command: bundle exec rails server --binding=0.0.0.0 --port=3001
     ports:
-      - "3000:3000"
-    depends_on:
-      - database
-    links:
-      - mailcatcher
+      - "3001:3001"
+    networks:
+      - pie_network
 
   react:
-    container_name: pie_react
-    image: "node:14-alpine"
-    user: "node"
-    working_dir: /home/docker_user/pie
-    volumes:
-      - ./client:/home/docker_user/pie/client
-    command: "bin/server"
     depends_on:
       - rails
+    container_name: pie_react
+    build: .
+    environment:
+      - REACT_APP_PROXY_HOST=http://rails:3001
+    volumes:
+      - .:/home/docker_user/pie
+    user: docker_user
+    command: /bin/bash -c "cd client && yarn start"
+    ports:
+      - "3000:3000"
+    networks:
+      - pie_network
+
+
+    # container_name: pie_react
+    # image: "node:14-alpine"
+    # user: "node"
+    # working_dir: /home/docker_user/pie
+    # volumes:
+    #   - ./client:/home/docker_user/pie/client
+    # command: "bin/server"
+    # ports:
+    #   - "3000:3000"
+    # depends_on:
+    #   - rails
 
 volumes:
   db_data:
+
+networks:
+  pie_network:
+    driver: bridge
