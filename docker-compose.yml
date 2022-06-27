@@ -74,19 +74,6 @@ services:
     networks:
       - pie_network
 
-
-    # container_name: pie_react
-    # image: "node:14-alpine"
-    # user: "node"
-    # working_dir: /home/docker_user/pie
-    # volumes:
-    #   - ./client:/home/docker_user/pie/client
-    # command: "bin/server"
-    # ports:
-    #   - "3000:3000"
-    # depends_on:
-    #   - rails
-
 volumes:
   db_data:
 
