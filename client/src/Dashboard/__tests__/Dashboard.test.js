@@ -22,9 +22,9 @@ describe('<Dashboard />', () => {
     await waitFor(() => {
       expect(container).toHaveTextContent('Your dashboard')
       expect(window.fetch).toHaveBeenCalledTimes(3)
-      expect(window.fetch.mock.calls[0][0]).toBe('/api/api/v1/profile')
-      expect(window.fetch.mock.calls[1][0]).toBe('/api/api/v1/businesses')
-      expect(window.fetch.mock.calls[2][0]).toBe('/api/api/v1/notifications')
+      expect(window.fetch.mock.calls[0][0]).toBe('/#/api/v1/profile')
+      expect(window.fetch.mock.calls[1][0]).toBe('/#/api/v1/businesses')
+      expect(window.fetch.mock.calls[2][0]).toBe('/#/api/v1/notifications')
     })
   })
 
@@ -34,10 +34,10 @@ describe('<Dashboard />', () => {
       expect(container).toHaveTextContent('Your dashboard')
       expect(window.fetch).toHaveBeenCalledTimes(3)
       expect(window.fetch.mock.calls[0][0]).toBe(
-        '/api/api/v1/case_list_for_dashboard'
+        '/#/api/v1/case_list_for_dashboard'
       )
-      expect(window.fetch.mock.calls[1][0]).toBe('/api/api/v1/businesses')
-      expect(window.fetch.mock.calls[2][0]).toBe('/api/api/v1/notifications')
+      expect(window.fetch.mock.calls[1][0]).toBe('/#/api/v1/businesses')
+      expect(window.fetch.mock.calls[2][0]).toBe('/#/api/v1/notifications')
     })
   })
 })

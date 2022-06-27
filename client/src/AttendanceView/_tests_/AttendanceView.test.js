@@ -23,7 +23,7 @@ describe('<AttendanceView />', () => {
     await waitFor(() => {
       expect(window.fetch).toHaveBeenCalledTimes(1)
       expect(window.fetch.mock.calls[0][0]).toBe(
-        '/api/api/v1/service_days?filter_date=' +
+        '/#/api/v1/service_days?filter_date=' +
           dayjs().format('YYYY-MM-DD') +
           '&business='
       )

@@ -11,7 +11,7 @@ export const useApiResponse = () => {
 
   const makeRequest = async request => {
     const { type, url, data, headers: requestHeaders = {} } = request
-    const proxyPrefixPlusUrl = '/api' + url
+    const proxyPrefixPlusUrl = '/#' + url
 
     const headers = {
       ...requestHeaders,

@@ -21,7 +21,7 @@ describe('<Attendance />', () => {
     doRender()
     await waitFor(() => {
       expect(window.fetch).toHaveBeenCalledTimes(1)
-      expect(window.fetch.mock.calls[0][0]).toBe('/api/api/v1/children')
+      expect(window.fetch.mock.calls[0][0]).toBe('/#/api/v1/children')
     })
   })
 
